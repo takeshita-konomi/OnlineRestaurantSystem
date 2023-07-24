@@ -102,20 +102,6 @@ public class MenuController {
 	}
 
 	/**
-	 * メニュー画面の注文ボタン押下時実行
-	 * 
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-
-	@PostMapping("/billin")
-	public String billin(Model model) throws Exception {
-
-		return "redirect:/bill";
-	}
-
-	/**
 	 * 各商品の合計金額を計算する
 	 * 
 	 * @param price 料金
@@ -129,4 +115,25 @@ public class MenuController {
 		return priceprice * countcount;
 	}
 
+
+	
+	
+	
+	
+	
+	/**
+	 * メニュー画面の注文ボタン押下時実行
+	 * 
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+
+	@PostMapping("/billin")
+	public String billin(Model model) throws Exception {
+
+		return "redirect:/bill";
+	}
+
+	
 }

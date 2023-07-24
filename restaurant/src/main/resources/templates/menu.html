@@ -50,7 +50,7 @@
 						</td>
 						<div th:if="${item.count} != 'textBox'">
 							<td>
-								<input type="text" class="list" readonly name="count" th:value="${item.count}"></input>
+								<input type="text" class="list input_count" readonly name="count" th:value="${item.count}"></input>
 							</td>
 						</div>
 						<div th:if="${item.count} == 'textBox'">
@@ -78,9 +78,9 @@
 	<ko>
 		<div th:if="${order}!=null">
 			<div th:if="${order.size()} gt 0">
-				<table>
-					<div th:each="item, stat: ${menu}">
-						<th:block th:if="${stat.index == 0}">
+				<div th:each="item, stat: ${order}">
+					<th:block th:if="${stat.index == 0}">
+						<table>
 							<tr>
 								<th>
 									<span class="headerColumn" readonly name="name" th:text="${item.name}"></span>
@@ -92,32 +92,27 @@
 									<span class="headerColumn" readonly name="count" th:text="${item.count}"></span>
 								</th>
 							</tr>
-						</th:block>
-						<th:block th:if="${stat.index != 0}">
-							<tr>
+					</th:block>
+					<th:block th:if="${stat.index != 0}">
+						<tr>
+							<td>
+								<option name="name" th:value="${item.name}" th:text="${item.name}"></option>
+							</td>
+							<td>
+								<option name="price" th:value="${item.price}" th:text="${item.price}"></option>
+							</td>
+							<div th:if="${item.count}!=${count}">
 								<td>
-									<option name="name" th:value="${item.name}" th:text="${item.name}"></option>
+									<option name="count" th:value="${item.count}" th:text="${item.count}"></option>
 								</td>
-								<td>
-									<option name="price" th:value="${item.price}" th:text="${item.price}"></option>
-								</td>
-								<div th:if="${item.count}!=${count}">
-									<td>
-										<option name="count" th:value="${item.count}" th:text="${item.count}"></option>
-									</td>
-								</div>
-								<div th:if="${item.count}==${count} && ${item.count}=='textbox'">
-									<td>
-										<option name="count" th:value="${count}" th:text="${count}">
-									</td>
-								</div>
-							</tr>
-						</th:block>
-					</div>
+							</div>
+						</tr>
+					</th:block>
+				</div>
 				</table>
-				<p style="display: inline;">合計金額
+				<p style="display: inline;" class="moji">合計金額
 				<div style="display: inline;" th:value="${total}"
-					th:text="${T(java.lang.String).format('\%,d', total)}"></div>
+					th:text="${T(java.lang.String).format('\%,d', total)}" class="moji"></div>
 				</p>
 			</div>
 		</div>

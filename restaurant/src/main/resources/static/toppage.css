@@ -48,6 +48,8 @@ table th {
 	text-align: center;
 }
 
+
+
 .textbox {
 	width: 60%;
 	height: 70%;
@@ -99,4 +101,8 @@ table th {
 }
 .cell {
 	margin-left: 100px;
+}
+
+.moji{
+	font-size: 20px;
 }

@@ -5,18 +5,21 @@ import java.util.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.regex.Pattern;
 import bean.Menu;
 
 public class Menuload {
 	public List<Menu> menucsv() {
 		List<Menu> menulist = new ArrayList<>();
-		BufferedReader br = null;
-		String menu_csv = "C:\\Users\\DC-PCN1144\\Desktop\\menu.csv";
-
+		
+		//String menu_csv = "C:\\Users\\DC-PCN1144\\Desktop\\menu.csv";
+		Path path = Paths.get("src\\main\\resources\\menucsv\\menu.csv");
 		try {
-			File file = new File(menu_csv);
-			br = new BufferedReader(new FileReader(file));
+			
+			BufferedReader br = Files.newBufferedReader(path);
 			// ファイルから読み取った行を連結する
 			StringBuilder sb = new StringBuilder();
 			String line;
@@ -40,14 +43,8 @@ public class Menuload {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 
-		} finally {
-			try {
-				br.close();
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
+		
 		}
-
 		return menulist;
 
 	}

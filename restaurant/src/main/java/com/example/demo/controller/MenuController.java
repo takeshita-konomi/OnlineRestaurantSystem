@@ -58,6 +58,7 @@ public class MenuController {
 		int countcountcount = countcount.length;
 
 		List<Menu> order = new ArrayList<>();
+		
 		// menuの回数分処理をループする
 		for (int i = 0; i < countcountcount; i++) {
 
@@ -109,14 +110,13 @@ public class MenuController {
 	 * @return 料金×個数
 	 */
 	private int sum(String price, String count) {
+		//金額と個数を計算するためにString型からint型に変換
 		int priceprice = Integer.parseInt(price.replace("¥", ""));
 		int countcount = Integer.parseInt(count);
 
 		return priceprice * countcount;
 	}
 
-
-	
 	
 	
 	
@@ -130,10 +130,14 @@ public class MenuController {
 	 */
 
 	@PostMapping("/billin")
-	public String billin(Model model) throws Exception {
-
+	public String billin(Model model
+			) throws Exception {
+				/*
+				 * //生産画面に表示する List<Menu> orderbill = new ArrayList<>();
+				 * 
+				 * String bill = String.join(",", ordermenu); orderbill.add(orderlist);
+				 */
 		return "redirect:/bill";
 	}
 
-	
 }

@@ -1,1 +1,1 @@
-# employeemanagement
+rootProject.name = 'restaurant'

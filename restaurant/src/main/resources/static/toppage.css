@@ -77,6 +77,7 @@ table th {
 
 /* メニューリストのTDの中のInputタグの設定　*/
 .list {
+	outline: none;
 	border: none;
 	font-size: large;
 }

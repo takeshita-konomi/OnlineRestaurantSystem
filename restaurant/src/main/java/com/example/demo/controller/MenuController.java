@@ -51,6 +51,8 @@ public class MenuController {
 		// 入力された個数の取得
 		String count = menu.getCount();
 
+		// TODO:1行目の注文個数に値をいれるとエラーとなるのでロジックの修正が必要
+
 		// countは1つの文字列としてくるので個数(count)をカンマで分割して配列に代入
 		String[] countcount = count.split(",");
 
@@ -111,7 +113,7 @@ public class MenuController {
 	 */
 	private int sum(String price, String count) {
 		//金額と個数を計算するためにString型からint型に変換
-		int priceprice = Integer.parseInt(price.replace("¥", ""));
+		int priceprice = Integer.parseInt(price.replace("￥", ""));
 		int countcount = Integer.parseInt(count);
 
 		return priceprice * countcount;

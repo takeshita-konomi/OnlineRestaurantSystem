@@ -1,71 +1,102 @@
 @charset "UTF-8";
 
-body{
+body {
 	font-size: 1em;
-	background-color:rgb(255, 255, 255);
-	
-	}	
-	
-h1{
-	text-align:center;
-    color: black;
-    font-size: 30px;
-    padding: 0.5em 0;/*上下の余白*/
-    width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    border-bottom: solid 3px black;/*下線*/ 
+	background-color: rgb(234, 244, 252);
+}
+
+h1 {
+	text-align: center;
+	color: black;
+	font-size: 30px;
+	padding: 0.5em 0;
+	/*上下の余白*/
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: solid 3px black;
+	/*下線*/
 }
 
 
 
-table{
+table {
 	width: 1200px;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:25px; 
+	margin-right: auto;
+	margin-top: 25px;
 }
-   
-    
-    
-table th, table td {
-  border: solid 1px black; /*線 1px 黒*/
-  }
-  
-  
-table td{
-	background-color:white;
-	height:2em;
- 	 width:6em;  
- 	 }
 
 
-table th{
-	background-color:white;
-	height:3em;
- 	 width:6em; 
-	}
-	
-.textbox{
-	width:60%;
-	height:70%;
+
+table th,
+table td {
+	border: solid 1px black;
+	/*線 1px 黒*/
+}
+
+
+table td {
+	background-color: white;
+	height: 2em;
+	padding: 10px;
+}
+
+
+table th {
+	background-color: rgb(252,235,237);
+	height: 3em;
+	text-align: center;
+}
+
+.textbox {
+	width: 60%;
+	height: 70%;
 	font-size: 1em;
 	text-align: center;
-	
 }
 
-.button {		/* 検索画面ボタン用 */
-    height: 50px;                              /* 高さ指定 */
-    width:  250px;                              /* 幅指定 */
-    position: relative;
-	display:inline-block;
+.button {
+	/* 検索画面ボタン用 */
+	height: 50px;
+	/* 高さ指定 */
+	width: 450px;
+	/* 幅指定 */
+	position: relative;
+	display: inline-block;
 	text-align: center;
-    font-size: 120%;
-    line-height: normal;
-    background-color: rgb(255, 255, 255);
-    border: solid 1px black;
-    transition: .3s;
-	margin-top:25px;
-	
+	font-size: 120%;
+	line-height: normal;
+    background: rgb(252,243,235);
+    font-weight: bold;
+	border: solid 1px black;
+	transition: .3s;
+	margin-top: 25px;
 }
 
+/* メニューリストのTDの中のInputタグの設定　*/
+.list {
+	border: none;
+	font-size: large;
+}
+/* ヘッダーカラムの設定 */
+.headerColumn {
+    border: none;
+    background-color: rgb(252,235,237);
+    font-size: large;
+    font-weight: bold;
+}
+/* メニューリストの個数の入力エリアのDIV専用 */
+.input_count {
+	text-align: center;
+}
+/* メニューリストの個数の入力エリア専用 */
+.inputCountArea {
+	border-radius: 5px;
+}
+.row {
+	display: inline-flex;
+    width: 50%;
+}
+.cell {
+	margin-left: 100px;
+}

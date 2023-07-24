@@ -3,58 +3,124 @@
 <html lang="ja">
 
 <head>
-<meta charset="UTF-8">
-<title>メニュー</title>
-<link th:href="@{toppage.css}" rel="stylesheet" >
+	<meta charset="UTF-8">
+	<title>メニュー</title>
+	<link th:href="@{toppage.css}" rel="stylesheet">
 
 </head>
 
 
 <body>
+	<h1>メニュー</h1>
 	<form method="post">
 		<table>
-			<h1>メニュー</h1>
-			<div th:each="item : ${menu}">
-				<tr>
-					<th><option name="ranking" th:value="${item.ranking}" th:text="${item.ranking}" ></option></th>
-					<th><option name="name" th:value="${item.name}" th:text="${item.name}"></option></th>
-					<th><option name="kcal" th:value="${item.kcal}" th:text="${item.kcal}"></option></th>
-					<th><option name="price" th:value="${item.price}" th:text="${item.price}"></option></th>
-					<div th:if="${item.count}!='textBox'">
-					<th><option name="count" th:value="${item.count}" th:text="${item.count}"></option></th>
-					</div>	
-					<div th:if="${item.count}=='textBox'">
-					<th><input type="text" name="count" th:value="${count}" class="textbox"></th>
-					</div>
-				</tr>
-			</div>
-		</table>
-		
-		<input type="submit" th:formaction="@{/order}" value="注文" class="button">
-		<input type="submit" th:formaction="@{/billin}" value="お会計" class="button">	
-	</form>
-	
-	
-	
-	<!--注文ボタンを押したときに表示する（メニュー、金額、注文個数）-->
-	<ko>
-	<div th:if="${order}!=null">
-		<div th:if="${order.size()} gt 0">
-			<table>
-				<div th:each="item : ${order}">
+			<div th:each="item, stat: ${menu}">
+				<th:block th:if="${stat.index == 0}">
 					<tr>
-						<th><option name="name" th:value="${item.name}" th:text="${item.name}"></option></th>
-						<th><option name="price" th:value="${item.price}" th:text="${item.price}"></option></th>
-						<div th:if="${item.count}!=${count}">
-							<th><option name="count" th:value="${item.count}" th:text="${item.count}"></option></th>
-						</div>	
-						<div th:if="${item.count}==${count}">
-							<th><option name="count" th:value="${count}" th:text="${count}"></th>
+						<th>
+							<span class="headerColumn" readonly name="ranking" th:text="${item.ranking}"></span>
+						</th>
+						<th>
+							<span class="headerColumn" readonly name="name" th:text="${item.name}"></span>
+						</th>
+						<th>
+							<span class="headerColumn" readonly name="kcal" th:text="${item.kcal}"></span>
+						</th>
+						<th>
+							<span class="headerColumn" readonly name="price" th:text="${item.price}"></span>
+						</th>
+						<th>
+							<span class="headerColumn" readonly name="count" th:text="${item.count}"></span>
+						</th>
+					</tr>
+				</th:block>
+				<th:block th:if="${stat.index != 0}">
+					<tr>
+						<td>
+							<input type="text" class="list" readonly name="ranking" th:value="${item.ranking}"></input>
+						</td>
+						<td>
+							<input type="text" class="list" readonly name="name" th:value="${item.name}"></input>
+						</td>
+						<td>
+							<input type="text" class="list" readonly name="kcal" th:value="${item.kcal}"></input>
+						</td>
+						<td>
+							<input type="text" class="list" readonly name="price" th:value="${item.price}"></input>
+						</td>
+						<div th:if="${item.count} != 'textBox'">
+							<td>
+								<input type="text" class="list" readonly name="count" th:value="${item.count}"></input>
+							</td>
+						</div>
+						<div th:if="${item.count} == 'textBox'">
+							<td class="input_count">
+								<input type="text" name="count" th:value="${count}" class="textbox inputCountArea">
+							</td>
 						</div>
 					</tr>
-				</div>
-			</table>
+				</th:block>
+			</div>
+		</table>
+		<div class="row">
+			<div class="cell">
+				<input type="submit" th:formaction="@{/order}" value="注文" class="button">
+			</div>
+			<div class="cell">
+				<input type="submit" th:formaction="@{/billin}" value="お会計" class="button">
+			</div>
 		</div>
-	</div>
+	</form>
+
+
+
+	<!--注文ボタンを押したときに表示する（メニュー、金額、注文個数）-->
+	<ko>
+		<div th:if="${order}!=null">
+			<div th:if="${order.size()} gt 0">
+				<table>
+					<div th:each="item, stat: ${menu}">
+						<th:block th:if="${stat.index == 0}">
+							<tr>
+								<th>
+									<span class="headerColumn" readonly name="name" th:text="${item.name}"></span>
+								</th>
+								<th>
+									<span class="headerColumn" readonly name="price" th:text="${item.price}"></span>
+								</th>
+								<th>
+									<span class="headerColumn" readonly name="count" th:text="${item.count}"></span>
+								</th>
+							</tr>
+						</th:block>
+						<th:block th:if="${stat.index != 0}">
+							<tr>
+								<td>
+									<option name="name" th:value="${item.name}" th:text="${item.name}"></option>
+								</td>
+								<td>
+									<option name="price" th:value="${item.price}" th:text="${item.price}"></option>
+								</td>
+								<div th:if="${item.count}!=${count}">
+									<td>
+										<option name="count" th:value="${item.count}" th:text="${item.count}"></option>
+									</td>
+								</div>
+								<div th:if="${item.count}==${count} && ${item.count}=='textbox'">
+									<td>
+										<option name="count" th:value="${count}" th:text="${count}">
+									</td>
+								</div>
+							</tr>
+						</th:block>
+					</div>
+				</table>
+				<p style="display: inline;">合計金額
+				<div style="display: inline;" th:value="${total}"
+					th:text="${T(java.lang.String).format('\%,d', total)}"></div>
+				</p>
+			</div>
+		</div>
 </body>
+
 </html>

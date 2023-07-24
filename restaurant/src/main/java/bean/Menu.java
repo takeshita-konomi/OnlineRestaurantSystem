@@ -12,15 +12,7 @@ public class Menu implements java.io.Serializable{
 	private String kcal;
 	private String price;
 	private String count;
-	private List<Menu> menulist;
-	
-	
-	public List<Menu> getMenulist() {
-		return menulist;
-	}
-	public void setMenulist(List<Menu> menulist) {
-		this.menulist = menulist;
-	}
+
 	public String getRanking() {
 		return ranking;
 	}

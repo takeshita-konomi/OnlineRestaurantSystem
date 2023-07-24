@@ -8,6 +8,9 @@ import java.io.FileReader;
 import java.util.regex.Pattern;
 import bean.Menu;
 
+/**
+ * @author takeshitakonomi
+ */
 public class Menuload {
 	public List<Menu> menucsv(){
 		List<Menu> menulist = new ArrayList<>();

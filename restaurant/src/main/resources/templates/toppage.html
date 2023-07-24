@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<title>トップページ</title>
+<link th:href="@{toppage.css}" rel="stylesheet" >
+
+</head>
+
+
+<body>
+	<form method="post">
+		<h1>ようこそ</h1>
+	
+			<input type="submit" th:formaction="@{/menuin}" value="メニュー" class="button"><br>
+		
+	</form>
+</body>
+</html>

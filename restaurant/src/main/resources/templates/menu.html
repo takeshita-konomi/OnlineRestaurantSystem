@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<title>メニュー</title>
+<link th:href="@{toppage.css}" rel="stylesheet" >
+
+</head>
+
+
+<body>
+	<form method="post">
+		<table>
+			<h1>メニュー</h1>
+			<div th:each="item : ${menu}">
+				<tr>
+					<th><option name="ranking" th:value="${item.ranking}" th:text="${item.ranking}" ></option></th>
+					<th><option name="name" th:value="${item.name}" th:text="${item.name}"></option></th>
+					<th><option name="kcal" th:value="${item.kcal}" th:text="${item.kcal}"></option></th>
+					<th><option name="price" th:value="${item.price}" th:text="${item.price}"></option></th>
+					<div th:if="${item.count}!='textBox'">
+					<th><option name="count" th:value="${item.count}" th:text="${item.count}"></option></th>
+					</div>	
+					<div th:if="${item.count}=='textBox'">
+					<th><input type="text" name="count" th:value="${count}" class="textbox"></th>
+					</div>
+				</tr>
+			</div>
+		</table>
+		
+		<input type="submit" th:formaction="@{/order}" value="注文" class="button">
+		<input type="submit" th:formaction="@{/billin}" value="お会計" class="button">	
+	</form>
+	
+	
+	
+	<!--注文ボタンを押したときに表示する（メニュー、金額、注文個数）-->
+	<ko>
+	<div th:if="${order}!=null">
+		<div th:if="${order.size()} gt 0">
+			<table>
+				<div th:each="item : ${order}">
+					<tr>
+						<th><option name="name" th:value="${item.name}" th:text="${item.name}"></option></th>
+						<th><option name="price" th:value="${item.price}" th:text="${item.price}"></option></th>
+						<div th:if="${item.count}!=${count}">
+							<th><option name="count" th:value="${item.count}" th:text="${item.count}"></option></th>
+						</div>	
+						<div th:if="${item.count}==${count}">
+							<th><option name="count" th:value="${count}" th:text="${count}"></th>
+						</div>
+					</tr>
+				</div>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+body{
+	font-size: 1em;
+	background-color:rgb(255, 255, 255);
+	
+	}	
+	
+h1{
+	text-align:center;
+    color: black;
+    font-size: 30px;
+    padding: 0.5em 0;/*上下の余白*/
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: solid 3px black;/*下線*/ 
+}
+
+
+
+table{
+	width: 1200px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:25px; 
+}
+   
+    
+    
+table th, table td {
+  border: solid 1px black; /*線 1px 黒*/
+  }
+  
+  
+table td{
+	background-color:white;
+	height:2em;
+ 	 width:6em;  
+ 	 }
+
+
+table th{
+	background-color:white;
+	height:3em;
+ 	 width:6em; 
+	}
+	
+.textbox{
+	width:60%;
+	height:70%;
+	font-size: 1em;
+	text-align: center;
+	
+}
+
+.button {		/* 検索画面ボタン用 */
+    height: 50px;                              /* 高さ指定 */
+    width:  250px;                              /* 幅指定 */
+    position: relative;
+	display:inline-block;
+	text-align: center;
+    font-size: 120%;
+    line-height: normal;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px black;
+    transition: .3s;
+	margin-top:25px;
+	
+}
+

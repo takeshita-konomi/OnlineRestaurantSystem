@@ -39,6 +39,7 @@ table td {
 	background-color: white;
 	height: 2em;
 	padding: 10px;
+	text-align: center;
 }
 
 
@@ -46,6 +47,7 @@ table th {
 	background-color: rgb(252,235,237);
 	height: 3em;
 	text-align: center;
+	
 }
 
 
@@ -79,17 +81,24 @@ table th {
 .list {
 	border: none;
 	font-size: large;
+	outline: none;
 }
+
 /* ヘッダーカラムの設定 */
 .headerColumn {
+	outline: none;
     border: none;
     background-color: rgb(252,235,237);
     font-size: large;
     font-weight: bold;
+    text-align: center;
 }
+
 /* メニューリストの個数の入力エリアのDIV専用 */
 .input_count {
-	text-align: center;
+	border-radius: 6px;
+	height:25px;
+	
 }
 /* メニューリストの個数の入力エリア専用 */
 .inputCountArea {

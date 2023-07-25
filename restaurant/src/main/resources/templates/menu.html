@@ -12,62 +12,52 @@
 
 <body>
 	<h1>メニュー</h1>
-	<form method="post">
+	<form th:method="post" th:object="${menuList}" name="menuList">
 		<table>
-			<div th:each="item, stat: ${menu}">
-				<th:block th:if="${stat.index == 0}">
-					<tr>
+			<div th:each="item, stat: *{menu}">
+				<tr>
+					<th:block th:if="${stat.index == 0}">
 						<th>
-							<span class="headerColumn" readonly name="ranking" th:text="${item.ranking}"></span>
+							<input class="headerColumn" readonly name="ranking" th:name="'menu[' + ${stat.index} + '].ranking'" th:value="${item.ranking}"></input>
 						</th>
 						<th>
-							<span class="headerColumn" readonly name="name" th:text="${item.name}"></span>
+							<input class="headerColumn" readonly name="name" th:name="'menu[' + ${stat.index} + '].name'" th:value="${item.name}"></input>
 						</th>
 						<th>
-							<span class="headerColumn" readonly name="kcal" th:text="${item.kcal}"></span>
+							<input class="headerColumn" readonly name="kcal" th:name="'menu[' + ${stat.index} + '].kcal'" th:value="${item.kcal}"></input>
 						</th>
 						<th>
-							<span class="headerColumn" readonly name="price" th:text="${item.price}"></span>
+							<input class="headerColumn" readonly name="price" th:name="'menu[' + ${stat.index} + '].price'" th:value="${item.price}"></input>
 						</th>
 						<th>
-							<span class="headerColumn" readonly name="count" th:text="${item.count}"></span>
+							<input class="headerColumn" readonly name="count"  th:name="'menu[' + ${stat.index} + '].count'" th:value="${item.count}"></input>
 						</th>
-					</tr>
 				</th:block>
 				<th:block th:if="${stat.index != 0}">
-					<tr>
 						<td>
-							<input type="text" class="list" readonly name="ranking" th:value="${item.ranking}"></input>
+							<input type="text" class="list" readonly name="ranking" th:name="'menu[' + ${stat.index} + '].ranking'" th:value="${item.ranking}"></input>
 						</td>
 						<td>
-							<input type="text" class="list" readonly name="name" th:value="${item.name}"></input>
+							<input type="text" class="list" readonly name="name" th:name="'menu[' + ${stat.index} + '].name'" th:value="${item.name}"></input>
 						</td>
 						<td>
-							<input type="text" class="list" readonly name="kcal" th:value="${item.kcal}"></input>
+							<input type="text" class="list" readonly name="kcal" th:name="'menu[' + ${stat.index} + '].kcal'" th:value="${item.kcal}"></input>
 						</td>
 						<td>
-							<input type="text" class="list" readonly name="price" th:value="${item.price}"></input>
+							<input type="text" class="list" readonly name="price" th:name="'menu[' + ${stat.index} + '].price'" th:value="${item.price}"></input>
 						</td>
-						<div th:if="${item.count} != 'textBox'">
-							<td>
-								<input type="text" class="list input_count" readonly name="count" th:value="${item.count}"></input>
-							</td>
-						</div>
-						<div th:if="${item.count} == 'textBox'">
-							<td class="input_count">
-								<input type="text" name="count" th:value="${count}" class="textbox inputCountArea">
-							</td>
-						</div>
-					</tr>
+						<td>
+							<input type="text" class="input_count" name="count" th:name="'menu[' + ${stat.index} + '].count'" th:value="${item.count}"></input>
+						</td>
 				</th:block>
 			</div>
 		</table>
 		<div class="row">
 			<div class="cell">
-				<input type="submit" th:formaction="@{/order}" value="注文" class="button">
+				<input type="submit" th:formaction="@{/order}" value="注文" class="button" style="cursor: pointer;">
 			</div>
 			<div class="cell">
-				<input type="submit" th:formaction="@{/billin}" value="お会計" class="button">
+				<input type="submit" th:formaction="@{/billin}" value="お会計" class="button" style="cursor: pointer;">
 			</div>
 		</div>
 	</form>

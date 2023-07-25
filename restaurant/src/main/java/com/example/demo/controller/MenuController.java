@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import bean.Menu;
+import bean.MenuList;
 import menu.Menuload;
 
 /**
@@ -21,12 +22,16 @@ public class MenuController {
 
 	@GetMapping("/menu")
 	public String menu(Model model) throws Exception {
-
+		
+		//メニューの表示
 		Menuload menuload = new Menuload();
 
 		List<Menu> menu = menuload.menucsv();
 
-		model.addAttribute("menu", menu);
+		MenuList menulist = new MenuList();
+		menulist.setMenu(menu);	
+		
+		model.addAttribute("menuList", menulist);
 
 		return "menu";
 	}
@@ -40,22 +45,27 @@ public class MenuController {
 	 */
 
 	@PostMapping("/order")
-	public String order(Model model, @ModelAttribute Menu menu) throws Exception {
+	public String order(Model model, @ModelAttribute MenuList menuList) throws Exception {
 
 		// メニューの表示
 		Menuload menuload = new Menuload();
 		List<Menu> menulist = menuload.menucsv();
 
-		model.addAttribute("menu", menulist);
+		model.addAttribute("menuList", menulist);
 
-		// 入力された個数の取得
-		String count = menu.getCount();
-
-		// countは1つの文字列としてくるので個数(count)をカンマで分割して配列に代入
-		String[] countcount = count.split(",");
+		/*
+		 * // 入力された個数の取得 String count = menu.getCount();
+		 * 
+		 * // TODO:1行目の注文個数に値をいれるとエラーとなるのでロジックの修正が必要
+		 * 
+		 * // countは1つの文字列としてくるので個数(count)をカンマで分割して配列に代入 String[] countcount =
+		 * count.split(",");
+		 */
+		
 
 		// 配列の要素数をintに代入
-		int countcountcount = countcount.length;
+		//int countcountcount = countcount.length;
+		int countcountcount = 0;
 
 		List<Menu> order = new ArrayList<>();
 		
@@ -63,13 +73,12 @@ public class MenuController {
 		for (int i = 0; i < countcountcount; i++) {
 
 			// menulistから項目を取得する(配列の[i]がきたときにmenulistの[i]行目に入れたい)
-			Menu ordermenu = menulist.get(i);
-
-			if (countcount[i] != null && countcount[i] != "") {
-				// menuの注文個数にcountの値をいれる
-				ordermenu.setCount(countcount[i]);
-				order.add(ordermenu);
-			}
+				Menu ordermenu = menulist.get(i);
+					
+				/*
+				 * if (countcount[i] != null && countcount[i] != "") { // menuの注文個数にcountの値をいれる
+				 * ordermenu.setCount(countcount[i]); order.add(ordermenu); }
+				 */
 
 			// ヘッダーの表示
 			if (i == 0) {
@@ -80,13 +89,13 @@ public class MenuController {
 
 		// 個数が入力されているところは値をorderに入れる
 		model.addAttribute("order", order);
-
+		
+		
 		// 合計金額の計算
 		// 1.合計金額の変数を１つ用意します。
 		int sumtotal = 0;
 		// loop counter
 		int loopCounter = 0;
-
 		// 2. orderに入っている分を回します。
 		for (Menu ordermenu : order) {
 			// 3. 回すときにsumメソッドをCALLします。
@@ -98,9 +107,11 @@ public class MenuController {
 		}
 		// 5. modelの合計金額欄に1.の変数をいれる
 		model.addAttribute("total", sumtotal);
-
+	
+		
 		return "menu";
 	}
+
 
 	/**
 	 * 各商品の合計金額を計算する
@@ -111,7 +122,7 @@ public class MenuController {
 	 */
 	private int sum(String price, String count) {
 		//金額と個数を計算するためにString型からint型に変換
-		int priceprice = Integer.parseInt(price.replace("¥", ""));
+		int priceprice = Integer.parseInt(price.replace("￥", ""));
 		int countcount = Integer.parseInt(count);
 
 		return priceprice * countcount;

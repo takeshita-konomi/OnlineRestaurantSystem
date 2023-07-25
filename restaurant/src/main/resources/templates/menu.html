@@ -12,9 +12,9 @@
 
 <body>
 	<h1>メニュー</h1>
-	<form method="post">
+	<form method="post" th:object="${menuList}">
 		<table>
-			<div th:each="item, stat: ${menu}">
+			<div th:each="item, stat: *{menu}">
 				<th:block th:if="${stat.index == 0}">
 					<tr>
 						<th>

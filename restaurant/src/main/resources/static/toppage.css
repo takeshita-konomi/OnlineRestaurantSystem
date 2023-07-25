@@ -78,6 +78,7 @@ table th {
 /* メニューリストのTDの中のInputタグの設定　*/
 .list {
 	border: none;
+	outline: none;
 	font-size: large;
 }
 /* ヘッダーカラムの設定 */

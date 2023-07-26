@@ -12,8 +12,14 @@
 
 <body>
 	<form method="post">
-		<h1>お会計</h1>
-			<input type="submit" th:formaction="@{/toppagereturn}" value="トップに戻る" class="button"><br>
+		注文履歴
+		<div th:if="${orderList}!=null" class="csv_format_list">
+				<div th:each="item: ${orderList}">
+					<span th:text="${item}"></span>
+				</div>
+		</div>
+		<p>合計金額 : <span th:text="${totalAmount}"></span></p>				
+		<input type="submit" th:formaction="@{/toppagereturn}" value="トップに戻る" class="button"><br>
 	</form>
 </body>
 </html>

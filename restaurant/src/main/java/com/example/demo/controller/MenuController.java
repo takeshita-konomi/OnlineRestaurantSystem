@@ -8,12 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import bean.Menu;
 import bean.MenuList;
 import menu.Menuload;
+import menu.Error;
 
 /**
  * MenuControllerクラス メニュー画面の初期表示
@@ -58,27 +58,43 @@ public class MenuController {
 		List<Menu> order = new ArrayList<>();
 
 		int loopCounter = 0;
+		Error ordererror = new Error();
 		// menuの回数分処理をループする
 		for (Menu orderMenu : menu) {
 
 			if (loopCounter == 0) {
 				loopCounter++;
-				
-				//orderにヘッダーの情報も必要です。
+
+				// orderにヘッダーの情報も必要です。
 				order.add(orderMenu);
-				
+
 				continue;
 			}
 
-			if (StringUtils.hasLength(orderMenu.getCount())) {
-				// 注文個数の値が入っているところの判定
-				System.out.println(orderMenu.getCount());
+			// 注文個数の値が入っているところの判定(null,空文字以外)
+			System.out.println(orderMenu.getCount());
+
+			// errorcheckメソッドを呼び出す
+			ordererror.errorcheck(orderMenu);
+
+
+			if (!ordererror.iserror() && orderMenu.getCount().length() != 0) {
 				order.add(orderMenu);
-
-				loopCounter++;
 			}
-
 		}
+
+		//orderエラーの判定
+		ordererror.ordercheck(order);
+		
+		// エラーの判定
+		if (ordererror.iserror()) {
+			menuList.setMessage(ordererror.getErrorlist());
+			return "menu";
+		}
+		
+		
+		//BillList orderlist = new BillList();
+		//orderlist.setMenu(order);
 
 		// 個数が入力されているところは値をorderに入れる
 		model.addAttribute("order", order);
@@ -112,7 +128,7 @@ public class MenuController {
 	 */
 	private int sum(String price, String count) {
 		// 金額と個数を計算するためにString型からint型に変換
-		int priceprice = Integer.parseInt(price.replace("￥", ""));
+		int priceprice = Integer.parseInt(price.replace("￥", "").replace(",", ""));
 		int countcount = Integer.parseInt(count);
 
 		return priceprice * countcount;
@@ -128,11 +144,7 @@ public class MenuController {
 
 	@PostMapping("/billin")
 	public String billin(Model model) throws Exception {
-		/*
-		 * //生産画面に表示する List<Menu> orderbill = new ArrayList<>();
-		 * 
-		 * String bill = String.join(",", ordermenu); orderbill.add(orderlist);
-		 */
+		
 		return "redirect:/bill";
 	}
 

@@ -18,7 +18,15 @@ h1 {
 	/*下線*/
 }
 
-
+.message {
+	padding: 10px; 
+	margin-bottom: 10px; 
+	border: 5px double #333333; 
+	width:800px; 
+	margin:auto; 
+	background-color:white;
+	line-height:10px;
+}
 
 table {
 	width: 1200px;
@@ -114,4 +122,14 @@ table th {
 
 .moji{
 	font-size: 20px;
+}
+
+
+/* 注文履歴 */
+.csv_format_list {
+	margin-top: 10px;
+}
+
+form { 
+	margin: 10px;
 }

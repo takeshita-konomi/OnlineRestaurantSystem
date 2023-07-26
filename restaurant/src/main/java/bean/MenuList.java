@@ -6,4 +6,5 @@ import lombok.Data;
 @Data
 public class MenuList {
 	List<Menu> menu;
+	List<Message> message;
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<title>お会計</title>
+<link th:href="@{toppage.css}" rel="stylesheet">
+</head>
+
+
+<body>
+	<form method="post">
+		<h1>注文履歴</h1>
+			<p>ランキング,メニュー名,カロリー,料金,注文個数</p>
+			<p>1,生姜焼き定食,800,800,3</p>
+			<p>3,カツカレー,1,100,900,1</p>
+			<p>4,唐揚げ定食,900,700,2</p>
+			<p>5,えびドリア,600,1,000,2</p><br>
+			<p>合計金額 : ￥6,700</p>
+			<input type="submit" th:formaction="@{/toppagereturn}" value="トップに戻る" class="button"><br>
+	</form>
+</body>
+</html>

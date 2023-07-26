@@ -13,6 +13,17 @@
 <body>
 	<h1>メニュー</h1>
 	<form th:method="post" th:object="${menuList}" name="menuList">
+		
+		<!-- エラーメッセージの表示 -->
+		<div th:if="*{message}!=null">
+			<div class="message">
+				<span th:each="i : *{message}" >
+					<p th:text="${i.message}"></p>
+				</span>
+			</div>
+		</div>
+
+			
 		<table>
 			<div th:each="item, stat: *{menu}">
 				<tr>
@@ -57,15 +68,15 @@
 				<input type="submit" th:formaction="@{/order}" value="注文" class="button" style="cursor: pointer;">
 			</div>
 			<div class="cell">
-				<input type="submit" th:formaction="@{/billin}" value="お会計" class="button" style="cursor: pointer;">
+				<input type="submit" th:formaction="@{/bill}" value="お会計" class="button" style="cursor: pointer;">
 			</div>
+			
 		</div>
-	</form>
-
+	
 
 
 	<!--注文ボタンを押したときに表示する（メニュー、金額、注文個数）-->
-	<ko>
+	<div th:object="${orderList}" name="orderList">
 		<div th:if="${order}!=null">
 			<div th:if="${order.size()} gt 0">
 				<div th:each="item, stat: ${order}">
@@ -100,12 +111,16 @@
 					</th:block>
 				</div>
 				</table>
-				<p style="display: inline;" class="moji">合計金額
+				<p style="display: inline;" class="moji">合計金額 ：
 				<div style="display: inline;" th:value="${total}"
 					th:text="${T(java.lang.String).format('\%,d', total)}" class="moji"></div>
 				</p>
+				<input type="hidden" name="totalAmount" th:value="${T(java.lang.String).format('\%,d', total)}" />
 			</div>
 		</div>
+		</div>
+		</div>
+		</form>
 </body>
 
 </html>

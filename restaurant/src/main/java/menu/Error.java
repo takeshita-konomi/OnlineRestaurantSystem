@@ -49,6 +49,11 @@ public class Error {
 			mes.setMessage("ランキング [" + ordermenu.getRanking() + "] 正しく入力してください");
 			errorlist.add(mes);
 		}
+		
+		else if(ordermenu.getCount().matches("0")) {
+			mes.setMessage("ランキング [" + ordermenu.getRanking() + "] は注文個数が0です");
+			errorlist.add(mes);
+		}
 
 		if (errorlist.size() != 0) {
 			iserror = true;

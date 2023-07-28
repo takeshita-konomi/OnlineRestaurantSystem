@@ -1,6 +1,5 @@
 package bean;
 
-import java.util.List;
 
 public class Menu implements java.io.Serializable{
 	//InvalidClassException(エラー)が出ないようにするために宣言している

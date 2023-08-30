@@ -13,12 +13,12 @@
 <body>
 	<form method="post">
 		注文履歴
-		<div th:if="${orderList}!=null" class="csv_format_list">
-				<div th:each="item: ${orderList}">
+		<div th:if="${orderlist}!=null" class="csv_format_list">
+				<div th:each="item: ${orderlist}">
 					<span th:text="${item}"></span>
 				</div>
 		</div>
-		<p>合計金額 : <span th:text="${totalAmount}"></span></p>				
+		<p>合計金額 : <span th:text="${totalamount}"></span></p>				
 		<input type="submit" th:formaction="@{/toppagereturn}" value="トップに戻る" class="button"><br>
 	</form>
 </body>

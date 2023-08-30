@@ -26,6 +26,7 @@ public class MenuController {
 	/**
 	 * menuメソッド 
 	 * メニュー画面のメニュー一覧を表示する
+	 * トップページ画面の「メニュー」ボタン押下時
 	 * @param model
 	 * @return
 	 * @throws Exception
@@ -37,15 +38,15 @@ public class MenuController {
 		Menuload menuload = new Menuload();
 
 		// Menu型Listのmenulistにmenuloadクラスのmenucsvメソッドの結果を入れる
-		List<Menu> menuList = menuload.menucsv();
-
+		List<Menu> menulist = menuload.menucsv();
+		
 		// MenuListのインスタンスをつくる
 		MenuList menu = new MenuList();
-		// MenuList型menuのsetMenuメソッドにmenuListを代入する
-		menu.setMenu(menuList);
+		// setMenuメソッドを呼び出している。引数：menuList
+		menu.setMenu(menulist);
 
 		// menuをmodelオブジェクトのmenuListという属性に入れる
-		model.addAttribute("menuList", menu);
+		model.addAttribute("menulist", menu);
 
 		// メニュー画面を返す
 		return "menu";
@@ -54,22 +55,23 @@ public class MenuController {
 	/**
 	 * orderメソッド 
 	 * 注文一覧を表示する
+	 * 「注文」ボタン押下時実行
 	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
 
 	@PostMapping("/order")
-	public String order(Model model, @ModelAttribute MenuList menuList) throws Exception {
+	public String order(Model model, @ModelAttribute MenuList menulist) throws Exception {
 
 		// menuListをmodelオブジェクトのmenuListという属性に入れる
-		model.addAttribute("menuList", menuList);
+		model.addAttribute("menulist", menulist);
 
 		// 画面に表示されているメニューの一覧を取得してmenuに入れる
-		List<Menu> menu = menuList.getMenu();
+		List<Menu> getmenulist = menulist.getMenu();
 
 		// 注文があったメニューのリストをいれる入れ物をつくる
-		List<Menu> order = new ArrayList<>();
+		List<Menu> orderlist = new ArrayList<>();
 
 		// int型のloopcounterの初期化する
 		int loopCounter = 0;
@@ -78,33 +80,33 @@ public class MenuController {
 		Errorcheck ordererror = new Errorcheck();
 
 		// menuの回数分処理をループする
-		for (Menu orderMenu : menu) {
+		for (Menu ordermenu : getmenulist) {
 
 			// loopcounterが0のときloopcounterに足す
 			if (loopCounter == 0) {
 				loopCounter++;
 
 				// orderにヘッダーの情報も必要なのでMenu型Listのorderに入れる
-				order.add(orderMenu);
+				orderlist.add(ordermenu);
 				// 次の繰り返し処理に移る
 				continue;
 			}
 
 			// errorcheckメソッドを呼び出す
-			ordererror.errorcheck(orderMenu);
+			ordererror.errorcheck(ordermenu);
 
 			// ordererrorクラスのiserrorメソッドがfalseかつ注文個数が入力されているときに注文するメニューの情報をorderに入れる
-			if (!ordererror.iserror() && orderMenu.getCount().length() != 0) {
-				order.add(orderMenu);
+			if (!ordererror.iserror() && ordermenu.getCount().length() != 0) {
+				orderlist.add(ordermenu);
 			}
 		}
 
 		// 注文個数が0個のときエラーの判定をする
-		ordererror.ordercheck(order);
+		ordererror.ordercheck(orderlist);
 
 		// エラーの判定
 		if (ordererror.iserror()) {
-			menuList.setMessage(ordererror.getErrorlist());
+			menulist.setMessage(ordererror.getErrorlist());
 			
 			//エラーメッセージを注文画面に表示する
 			return "menu";
@@ -112,7 +114,7 @@ public class MenuController {
 
 		// 個数が入力されているところは値をorderに入れる
 		//　orderをmodelオブジェクトに追加
-		model.addAttribute("order", order);
+		model.addAttribute("order", orderlist);
 
 		// 合計金額の計算をする
 		// 1.合計金額の変数を１つ用意する
@@ -120,7 +122,7 @@ public class MenuController {
 		// loop counterを0に初期化する
 		loopCounter = 0;
 		// 2. orderに入っている分を回す
-		for (Menu ordermenu : order) {
+		for (Menu ordermenu : orderlist) {
 			// 3. 回すときにsumメソッドをCALLする
 			// 4. loopcounterが0以外かつ注文個数がnull,空文字でないときにsumの戻りを１．の変数に足し算する
 			if (loopCounter != 0 && StringUtils.hasLength(ordermenu.getCount())) {
@@ -155,6 +157,7 @@ public class MenuController {
 	/**
 	 * billinメソッド 
 	 * お会計画面に遷移する
+	 * 「お会計」ボタン押下時実行
 	 * @param model
 	 * @return
 	 * @throws Exception
@@ -164,7 +167,7 @@ public class MenuController {
 	public String billin(Model model) throws Exception {
 
 		// お会計画面のControllerにリダイレクトする
-		return "redirect:/bill";
+		return "redirect:bill";
 	}
 
 }

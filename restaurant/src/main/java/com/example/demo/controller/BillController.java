@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import bean.Menu;
 import bean.MenuList;
+import bean.Message;
 
 /**
  * お会計画面の初期表示
@@ -18,9 +19,13 @@ import bean.MenuList;
 @Controller
 public class BillController {
 	
+	// Message型Listのerrorlistの宣言する
+		private List<Message> errorlist;
+		
 	/**
 	 * billメソッド
 	 * お会計画面の注文履歴と合計金額の表示する
+	 * メニュー画面の「お会計」ボタン押下時
 	 * @param model
 	 * @param orderList
 	 * @param totalAmount
@@ -28,50 +33,57 @@ public class BillController {
 	 * @throws Exception
 	 */
 	@PostMapping("/bill")
-	public String bill(Model model, @ModelAttribute MenuList orderList, String totalAmount) throws Exception {
+	public String bill(Model model, @ModelAttribute MenuList orderlist, String totalamount) throws Exception {
+		/*
+		 * if(totalamount == null) { Message mes = new Message(); mes.setMessage(メニュー)
+		 * 
+		 * }
+		 */
+		
+		
 		// 注文があったメニューを取得してmenulistに入れる
-		List<Menu> menulist = orderList.getMenu();
+		List<Menu> menulist = orderlist.getMenu();
 
 		// orderなので注文個数に値があるものが対象となる
 		// CSV形式でリストを作成する
-		List<String> outputDataList = new ArrayList<String>();
+		List<String> outputdatalist = new ArrayList<String>();
 
 		// menulistの回数分処理をループする
-		for (Menu orderMenu : menulist) {
+		for (Menu ordermenu : menulist) {
 
 			// StringBuffer(文字列の値が不変であると分かっているときに使用する)クラスのインスタンスをつくる
-			StringBuffer csvFormat = new StringBuffer();
+			StringBuffer csvformat = new StringBuffer();
 			// 注文個数に値があるものを出力対象とする
-			if (StringUtils.hasLength(orderMenu.getCount())) {
+			if (StringUtils.hasLength(ordermenu.getCount())) {
 				// ｃｓｖFormatという変数にランキングの値を追加している
-				csvFormat.append(orderMenu.getRanking());
+				csvformat.append(ordermenu.getRanking());
 				// カンマで区切るのでカンマも追加する
-				csvFormat.append(",　");
+				csvformat.append(",　");
 				// ｃｓｖFormatという変数にメニューの値を追加している
-				csvFormat.append(orderMenu.getName());
+				csvformat.append(ordermenu.getName());
 				// カンマで区切るのでカンマも追加する
-				csvFormat.append(", ");
+				csvformat.append(", ");
 				// ｃｓｖFormatという変数にカロリーの値を追加している
-				csvFormat.append(orderMenu.getKcal());
+				csvformat.append(ordermenu.getKcal());
 				// カンマで区切るのでカンマも追加する
-				csvFormat.append(", ");
+				csvformat.append(", ");
 				// ｃｓｖFormatという変数に金額の値を追加している
-				csvFormat.append(orderMenu.getPrice());
+				csvformat.append(ordermenu.getPrice());
 				// カンマで区切るのでカンマも追加する
-				csvFormat.append(", ");
+				csvformat.append(", ");
 				// ｃｓｖFormatという変数に注文個数の値を追加している
-				csvFormat.append(orderMenu.getCount());
+				csvformat.append(ordermenu.getCount());
 				// ｃｓｖFormatをString型にしてからcsv形式で表示するためのoutputDataListというリストに追加している
-				outputDataList.add(csvFormat.toString());
+				outputdatalist.add(csvformat.toString());
 			}
 		}
-		// CSV出力をする
-		//　csv形式の注文一覧をmodelオブジェクトのorderListという属性に入れる
-		model.addAttribute("orderList", outputDataList);
+		// CSV形式で出力をする
+		//　CSV形式の注文一覧をmodelオブジェクトのorderListという属性に入れる
+		model.addAttribute("orderlist", outputdatalist);
 
 		// 合計金額を出力する
 		//　合計金額をmodelオブジェクトのtotalAmountという属性に入れる
-		model.addAttribute("totalAmount", totalAmount);
+		model.addAttribute("totalamount", totalamount);
 
 		// お会計画面を返す
 		return "bill";
@@ -80,6 +92,7 @@ public class BillController {
 	/**
 	 * menureturnメソッド 
 	 * お会計画面からトップページ画面に遷移する
+	 * 「トップに戻る」ボタン押下時実行
 	 * @param model
 	 * @return
 	 * @throws Exception
@@ -89,7 +102,7 @@ public class BillController {
 	public String menureturn(Model model) throws Exception {
 
 		// トップページ画面のControllerにリダイレクトする
-		return "redirect:/toppage";
+		return "redirect:toppage";
 	}
 
 }

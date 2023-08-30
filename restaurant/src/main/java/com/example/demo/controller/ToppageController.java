@@ -28,6 +28,7 @@ public class ToppageController {
 	/**
 	 * menuinメソッド 
 	 * トップページ画面からメニュー画面に遷移する
+	 * 「メニュー」ボタン押下時実行
 	 * @param model
 	 * @return
 	 * @throws Exception
@@ -37,7 +38,7 @@ public class ToppageController {
 	public String menuin(Model model) throws Exception {
 
 		// メニュー画面のContollerにリダイレクトする
-		return "redirect:/menu";
+		return "redirect:menu";
 	}
 
 }

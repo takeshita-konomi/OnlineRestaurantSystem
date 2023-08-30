@@ -18,7 +18,7 @@ import bean.Menu;
  */
 public class Menuload {
 
-	/** MENU CSVの定数（フルパス） */
+	/** MENU CSVの定数 */
 	private static final String MENU_CSV_FILE_NAME = "/menucsv/menu.csv";
 
 	/**
@@ -37,18 +37,18 @@ public class Menuload {
 			// メニューのcsvファイルの連続するデータを順に必要な分だけ読み込む
 			InputStream is = new ClassPathResource(MENU_CSV_FILE_NAME).getInputStream();
 			// 読み込んだものをUTF-8の文字コードで読み込んでbrに代入する
-			br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-
+			InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+			br = new BufferedReader(isr);
+			
 			// 読み込み行をnullに設定する
 			String line = null;
 
 			// lineがnullではない間は処理を繰り返す(readLineは文字が終了するとnullを返してlineに代入する)
 			while ((line = br.readLine()) != null) {
-				//文字列内のカンマで区切られないようにするためにダブルコーテーションの直前だけで区切るように設定している
+				// 文字列内のカンマで区切られないようにするためにダブルコーテーションの直前だけで区切るように設定している
 				Pattern cPattern = Pattern.compile(",(?=(([^\"]*\"){2})*[^\"]*$)");
 				// カンマで区切って配列に入れる
 				String[] columns = cPattern.split(line, -1);
-				
 				// メニューのインスタンスをつくる
 				Menu menu = new Menu();
 				// 配列の1番目をランキングに代入する
@@ -66,14 +66,14 @@ public class Menuload {
 			}
 
 		} catch (Exception e) {
-			//例外が発生した時に例外が発生したメソッドと例外が発生するまでに経てきたメソッドがわかるようにする
+			//例外が発生したときに例外が発生したメソッドと例外が発生するまでに経てきたメソッドがわかるようにする
 			e.printStackTrace();
 			//コンソールにメッセージを表示する
 			System.out.println(e.getMessage());
 
 		} finally {
 			try {
-				//brがnullじゃないときBufferedReaderを閉じる
+				//brがnull以外のときBufferedReaderを閉じる
 				if (br != null) {
 					br.close();
 				}

@@ -2,9 +2,9 @@ package bean;
 
 
 public class Menu implements java.io.Serializable{
+	
 	//InvalidClassException(エラー)が出ないようにするために宣言している
 	private static final long serialVersionUID = 1L;
-	
 	
 	private String ranking;
 	private String name;
@@ -42,9 +42,7 @@ public class Menu implements java.io.Serializable{
 	public void setCount(String count) {
 		this.count = count;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 	
 	
 }

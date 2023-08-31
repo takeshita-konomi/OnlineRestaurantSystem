@@ -30,17 +30,20 @@ public class BillController {
 	 */
 	@PostMapping("/bill")
 	public String bill(Model model, @ModelAttribute MenuList orderlist, String totalamount) throws Exception {
-		
-		List<Message> listmes = new ArrayList<>();
+
+		// 注文ボタンを押さずにお会計ボタンを押したときにエラーにする
+		List<Message> errorlist = new ArrayList<>();
 		if (totalamount == null) {
 			Message mes = new Message();
 			mes.setMessage("注文ボタンを押したあとねこのボタン");
-			listmes.add(mes);
-			orderlist.setMessage(listmes);
-			model.addAttribute("menulist",orderlist);
-			
+			errorlist.add(mes);
+			// MenuListにメッセージを入れる
+			orderlist.setMessage(errorlist);
+			model.addAttribute("menulist", orderlist);
+
 			return "menu";
 		}
+
 		// 注文があったメニューを取得してmenulistに入れる
 		List<Menu> menulist = orderlist.getMenu();
 
@@ -99,9 +102,9 @@ public class BillController {
 
 	@PostMapping("/toppagereturn")
 	public String toppagereturn(Model model) throws Exception {
-		
+
 		// トップページ画面のControllerにリダイレクトする
 		return "redirect:toppage";
 	}
-	
+
 }

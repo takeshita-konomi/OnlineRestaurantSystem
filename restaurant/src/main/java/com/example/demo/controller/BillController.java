@@ -19,8 +19,7 @@ import bean.Message;
 @Controller
 public class BillController {
 	
-	// Message型Listのerrorlistの宣言する
-		private List<Message> errorlist;
+	
 		
 	/**
 	 * billメソッド
@@ -34,11 +33,6 @@ public class BillController {
 	 */
 	@PostMapping("/bill")
 	public String bill(Model model, @ModelAttribute MenuList orderlist, String totalamount) throws Exception {
-		/*
-		 * if(totalamount == null) { Message mes = new Message(); mes.setMessage(メニュー)
-		 * 
-		 * }
-		 */
 		
 		
 		// 注文があったメニューを取得してmenulistに入れる

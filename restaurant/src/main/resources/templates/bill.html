@@ -13,6 +13,16 @@
 <body>
 	<form method="post">
 		注文履歴
+		<!-- エラーメッセージの表示 -->
+		<div th:if="*{message}!=null">
+			<div class="message">
+				<span th:each="i : *{message}" >
+					<p th:text="${i.message}"></p>
+				</span>
+			</div>
+		</div>
+		
+		<div>
 		<div th:if="${orderlist}!=null" class="csv_format_list">
 				<div th:each="item: ${orderlist}">
 					<span th:text="${item}"></span>

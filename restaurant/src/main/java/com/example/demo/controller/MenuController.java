@@ -68,7 +68,7 @@ public class MenuController {
 		model.addAttribute("menulist", menulist);
 
 		// 画面に表示されているメニューの一覧を取得してmenuに入れる
-		List<Menu> getmenulist = menulist.getMenu();
+		List<Menu> displaymenulist = menulist.getMenu();
 
 		// 注文があったメニューのリストをいれる入れ物をつくる
 		List<Menu> orderlist = new ArrayList<>();
@@ -80,7 +80,7 @@ public class MenuController {
 		Errorcheck ordererror = new Errorcheck();
 
 		// menuの回数分処理をループする
-		for (Menu ordermenu : getmenulist) {
+		for (Menu ordermenu : displaymenulist) {
 
 			// loopcounterが0のときloopcounterに足す
 			if (loopCounter == 0) {
@@ -165,7 +165,7 @@ public class MenuController {
 
 	@PostMapping("/billin")
 	public String billin(Model model) throws Exception {
-
+		
 		// お会計画面のControllerにリダイレクトする
 		return "redirect:bill";
 	}

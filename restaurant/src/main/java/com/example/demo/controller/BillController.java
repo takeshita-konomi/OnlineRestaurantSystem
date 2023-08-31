@@ -18,23 +18,29 @@ import bean.Message;
  */
 @Controller
 public class BillController {
-	
-	
-		
+
 	/**
-	 * billメソッド
-	 * お会計画面の注文履歴と合計金額の表示する
-	 * メニュー画面の「お会計」ボタン押下時
+	 * billメソッド お会計画面の注文履歴と合計金額の表示する メニュー画面の「お会計」ボタン押下時
+	 * 
 	 * @param model
-	 * @param orderList
-	 * @param totalAmount
+	 * @param orderlist
+	 * @param totalamount
 	 * @return
 	 * @throws Exception
 	 */
 	@PostMapping("/bill")
 	public String bill(Model model, @ModelAttribute MenuList orderlist, String totalamount) throws Exception {
 		
-		
+		List<Message> listmes = new ArrayList<>();
+		if (totalamount == null) {
+			Message mes = new Message();
+			mes.setMessage("注文ボタンを押したあとねこのボタン");
+			listmes.add(mes);
+			orderlist.setMessage(listmes);
+			model.addAttribute("menulist",orderlist);
+			
+			return "menu";
+		}
 		// 注文があったメニューを取得してmenulistに入れる
 		List<Menu> menulist = orderlist.getMenu();
 
@@ -72,11 +78,11 @@ public class BillController {
 			}
 		}
 		// CSV形式で出力をする
-		//　CSV形式の注文一覧をmodelオブジェクトのorderListという属性に入れる
+		// CSV形式の注文一覧をmodelオブジェクトのorderListという属性に入れる
 		model.addAttribute("orderlist", outputdatalist);
 
 		// 合計金額を出力する
-		//　合計金額をmodelオブジェクトのtotalAmountという属性に入れる
+		// 合計金額をmodelオブジェクトのtotalAmountという属性に入れる
 		model.addAttribute("totalamount", totalamount);
 
 		// お会計画面を返す
@@ -84,19 +90,18 @@ public class BillController {
 	}
 
 	/**
-	 * menureturnメソッド 
-	 * お会計画面からトップページ画面に遷移する
-	 * 「トップに戻る」ボタン押下時実行
+	 * menureturnメソッド お会計画面からトップページ画面に遷移する 「トップに戻る」ボタン押下時実行
+	 * 
 	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
 
 	@PostMapping("/toppagereturn")
-	public String menureturn(Model model) throws Exception {
-
+	public String toppagereturn(Model model) throws Exception {
+		
 		// トップページ画面のControllerにリダイレクトする
 		return "redirect:toppage";
 	}
-
+	
 }

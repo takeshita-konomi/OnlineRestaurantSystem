@@ -8,25 +8,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.util.StringUtils;
 
 import bean.Menu;
 import bean.MenuList;
+import bean.Message;
 import menu.Menuload;
 import menu.Errorcheck;
 
 /**
- * MenuControllerクラス 
- * メニュー画面の初期表示
+ * MenuControllerクラス メニュー画面の初期表示
  */
 
 @Controller
 public class MenuController {
 
 	/**
-	 * menuメソッド 
-	 * メニュー画面のメニュー一覧を表示する
-	 * トップページ画面の「メニュー」ボタン押下時
+	 * menuメソッド メニュー画面のメニュー一覧を表示する トップページ画面の「メニュー」ボタン押下時
+	 * 
 	 * @param model
 	 * @return
 	 * @throws Exception
@@ -39,7 +39,7 @@ public class MenuController {
 
 		// Menu型Listのmenulistにmenuloadクラスのmenucsvメソッドの結果を入れる
 		List<Menu> menulist = menuload.menucsv();
-		
+
 		// MenuListのインスタンスをつくる
 		MenuList menu = new MenuList();
 		// setMenuメソッドを呼び出している。引数：menuList
@@ -53,9 +53,8 @@ public class MenuController {
 	}
 
 	/**
-	 * orderメソッド 
-	 * 注文一覧を表示する
-	 * 「注文」ボタン押下時実行
+	 * orderメソッド 注文一覧を表示する 「注文」ボタン押下時実行
+	 * 
 	 * @param model
 	 * @return
 	 * @throws Exception
@@ -107,13 +106,13 @@ public class MenuController {
 		// エラーの判定
 		if (ordererror.iserror()) {
 			menulist.setMessage(ordererror.getErrorlist());
-			
-			//エラーメッセージを注文画面に表示する
+
+			// エラーメッセージを注文画面に表示する
 			return "menu";
 		}
 
 		// 個数が入力されているところは値をorderに入れる
-		//　orderをmodelオブジェクトに追加
+		// orderをmodelオブジェクトに追加
 		model.addAttribute("order", orderlist);
 
 		// 合計金額の計算をする
@@ -139,8 +138,8 @@ public class MenuController {
 	}
 
 	/**
-	 * sumメソッド 
-	 * 各商品の合計金額を計算する
+	 * sumメソッド 各商品の合計金額を計算する
+	 * 
 	 * @param price 料金
 	 * @param count 個数
 	 * @return 料金×個数
@@ -155,9 +154,8 @@ public class MenuController {
 	}
 
 	/**
-	 * billinメソッド 
-	 * お会計画面に遷移する
-	 * 「お会計」ボタン押下時実行
+	 * billinメソッド お会計画面に遷移する 「お会計」ボタン押下時実行
+	 * 
 	 * @param model
 	 * @return
 	 * @throws Exception
@@ -165,6 +163,7 @@ public class MenuController {
 
 	@PostMapping("/billin")
 	public String billin(Model model) throws Exception {
+		
 		
 		// お会計画面のControllerにリダイレクトする
 		return "redirect:bill";

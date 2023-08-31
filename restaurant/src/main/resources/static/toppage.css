@@ -126,6 +126,16 @@ table th {
 
 
 /* 注文履歴 */
+.billmessage {
+	padding: 10px; 
+	margin-bottom: 10px; 
+	border: 5px double #333333; 
+	width:500px; 
+	margin:left; 
+	background-color:white;
+	line-height:10px;
+}
+
 .csv_format_list {
 	margin-top: 10px;
 }
